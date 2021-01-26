@@ -49,7 +49,7 @@ contract MerkleDistributor is IMerkleDistributor {
         // Mark as claimed and send the BNB.
         _setClaimed(index);
         
-        require(token.transfer(msg.sender, amount), "MerkleDistributor: Transfer failed");
+        require(token.transfer(account, amount), "MerkleDistributor: Transfer failed");
 
         emit Claimed(index, account, amount);
     }
