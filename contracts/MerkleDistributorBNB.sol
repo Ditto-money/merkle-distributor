@@ -33,7 +33,7 @@ contract MerkleDistributor is IMerkleDistributor {
 
     function claim(
         uint256 index,
-        address account,
+        address payable account,
         uint256 amount,
         bytes32[] calldata merkleProof
     ) external virtual override {
@@ -45,7 +45,7 @@ contract MerkleDistributor is IMerkleDistributor {
 
         // Mark as claimed and send the BNB.
         _setClaimed(index);
-        (bool success, bytes memory data) = msg.sender.call{value:amount}("ditto.money");
+        (bool success, bytes memory data) = account.call{value:amount}("ditto.money");
         require(success, 'DittoClaimDistributor: Transfer failed');
 
         emit Claimed(index, account, amount);
